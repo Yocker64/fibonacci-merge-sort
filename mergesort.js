@@ -1,28 +1,16 @@
-
 function mergeSort(array) {
-  if (array.length <=1) {
-    return array
-  } 
-  if (array.length ==2) {
-    return orderOrderedArrays([array[0]],[array[1]])
+  if (array.length <= 1) {
+    return array;
   }
 
-  let middle = Math.ceil(array.length/2);
-  let right = middle;
-  let newArray = []
-  
+  const middle = Math.floor(array.length / 2); // Use floor for consistency
+  const leftHalf = array.slice(0, middle);     // Non-modifying slice
+  const rightHalf = array.slice(middle);      // Non-modifying slice
 
-  console.log(array);
-  console.log(middle);
-  
+  const sortedLeft = mergeSort(leftHalf);
+  const sortedRight = mergeSort(rightHalf);
 
-  
-  // newArray.push(...mergeSort(array.splice(0,middle)))
-  // newArray.push(...mergeSort(array.splice(0,middle)))
-  newArray = orderOrderedArrays(mergeSort(array.splice(0,middle)),mergeSort(array.splice(0,middle)))
-  // mergeSort(array.splice(0,middle))
-  return newArray
- 
+  return orderOrderedArrays(sortedLeft, sortedRight);
 }
 
 function orderOrderedArrays(array1, array2) {
@@ -40,14 +28,11 @@ function orderOrderedArrays(array1, array2) {
   }
   if (index1== array1.length) {
     orderedArraysOrdered.push(...array2.splice(index2,array2.length-index2))
-    console.log(array2.splice(index2,array2.length-index2));
   }else{
     orderedArraysOrdered.push(...array1.splice(index1,array1.length-index1))
   }
   return orderedArraysOrdered
 }
+let arrayOrdered = mergeSort([2,1,132,65,56,12,344,12,5,1431342,123,12,344,12]);
+console.log(arrayOrdered);
 
-console.log(mergeSort([2,1,132,65,56,12,344,12,5,1431342,123,12,344,12]));
-
-// let arr = [8,7,5,1]
-// console.log(mergeSort(arr));
